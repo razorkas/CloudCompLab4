@@ -1,0 +1,27 @@
+.landing {
+  height: 100vh;
+  background-color: lavender;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.link-tab {
+  background-color: grey;
+  width: 100%;
+  height: 50%;
+  margin: 10px;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.link-tab :hover {
+  background-color: black;
+}
