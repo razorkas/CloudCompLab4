@@ -239,10 +239,10 @@ class Table extends Component {
               <td>
                 <TextFieldGroup
                   placeholder="Constr"
-                  name="freeconstr"
-                  value={this.state.freeconstr}
+                  name="siteconstr"
+                  value={this.state.siteconstr}
                   onChange={this.onChange}
-                  error={errors.freeconstr}
+                  error={errors.siteconstr}
                 />
               </td>
               <td>
