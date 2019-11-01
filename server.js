@@ -13,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB Config
-// const db = require('./config/keys').mongoURI;
+const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
-// mongoose
-//   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => console.log('MongoDB Connected'))
-//   .catch(err => console.log(err));
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
 // Use Routes
 app.use('/api/lab3', lab3);
