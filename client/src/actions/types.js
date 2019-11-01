@@ -11,3 +11,6 @@ export const ADD_RECORD = 'ADD_RECORD';
 export const REMOVE_RECORD = 'REMOVE_RECORD';
 
 // Lab 4 actions ** ll be added soon
+export const GET_DATA = 'GET_DATA';
+export const DATA_LOADING = 'DATA_LOADING';
+export const FIND_CUSTOMERS = 'FIND_CUSTOMERS';
