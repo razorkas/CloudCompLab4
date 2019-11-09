@@ -13,8 +13,7 @@ const validateProduct = require('../../validation/product');
 const validateSupplier = require('../../validation/supplier');
 
 // ** TASK **
-// Вывод всех покупателей (Customer), заказавших товар (Product) на сумму,
-//  превышающих заданное значение.
+// Вывод всех заказов (Orders), сделанных покупателями (Customer), не ранее заданной даты.
 
 // Validation add validation for input on LAB4
 // if needed ????
@@ -68,55 +67,23 @@ router.get('/', async (req, res) => {
   });
 });
 
-// @route GET api/lab4/customer/:prod_id/:ord_sum
-// @desc gets all customers bought product on summary more then written
-router.get('/customer/:prod_id/:ord_sum', async (req, res) => {
-  const productId = req.params.prod_id;
-  const orderSum = Number.parseFloat(req.params.ord_sum);
+// @route GET api/lab4/orders/:date
+// @desc gets all orders made by customers after some date
+router.get('/orders/:date', async (req, res) => {
+  const date = new Date(req.params.date);
 
-  let product, foundOrderItems, orders, customers;
-  try {
-    product = await Product.findOne({ _id: productId });
-  } catch (err) {
-    res.status(404).json({ fetchError: 'No such product' });
-  }
-
-  try {
-    foundOrderItems = await OrderItem.find({ product: productId });
-
-    foundOrderItems = foundOrderItems.filter(
-      item => item.quantity * product.price > orderSum
-    );
-  } catch (err) {
-    res.status(404).json({ fetchError: 'No orders for such product' });
-  }
-
-  if (foundOrderItems.length === 0) {
-    res.json({ fetchError: 'No orders for such summary' });
-  }
+  let orders;
 
   try {
     orders = await Orders.find({
-      orderItems: {
-        $in: foundOrderItems.map(item => item._id)
-      }
+      date: { $gt: date }
     });
   } catch (err) {
-    res.status(404).json({ fetchError: 'Have no such orders' });
-  }
-
-  try {
-    customers = await Customer.find({
-      _id: {
-        $in: orders.map(order => order.customer)
-      }
-    });
-  } catch (err) {
-    res.status(404).json({ fetchError: 'Have no such customers' });
+    res.status(404).json({ fetchError: 'No such orders' });
   }
 
   res.json({
-    foundCustomers: customers
+    foundOrders: orders
   });
 });
 

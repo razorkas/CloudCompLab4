@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   GET_DATA,
   DATA_LOADING,
-  FIND_CUSTOMERS,
+  FIND_ORDERS,
   GET_ERRORS,
   CLEAR_ERRORS
 } from './types';
@@ -28,19 +28,21 @@ export const getData = () => dispatch => {
 };
 
 // Find customers who ve bought some product on specified summary
-export const findCustomers = (productId, orderSummary) => dispatch => {
+export const findOrders = date => dispatch => {
   dispatch(setDataLoading());
+  console.log(date);
+
   axios
-    .get(`/api/lab4/customer/${productId}/${orderSummary}`)
+    .get(`/api/lab4/orders/${date}`)
     .then(res =>
       dispatch({
-        type: FIND_CUSTOMERS,
+        type: FIND_ORDERS,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: FIND_CUSTOMERS,
+        type: FIND_ORDERS,
         payload: err.data
       })
     );

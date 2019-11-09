@@ -38,8 +38,8 @@ class Lab4 extends Component {
           <Link to="/" className="link-button">
             <span>Back To Main Page</span>
           </Link>
-          <Link to="/lab4/customer" className="link-button">
-            <span>Find customers</span>
+          <Link to="/lab4/orders" className="link-button">
+            <span>Find Orders</span>
           </Link>
           <div className="raw">
             <div className="left">

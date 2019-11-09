@@ -285,7 +285,7 @@ class Table extends Component {
 
     return (
       <div>
-        <h4>{'<DATA NAME>'}</h4>
+        <h4>Packages</h4>
         {tableContent}
       </div>
     );

@@ -5,15 +5,14 @@ import { connect } from 'react-redux';
 
 import isEmpty from '../../validation/is-empty';
 import Spinner from '../common/Spinner';
-import TextFieldGroup from '../common/TextFieldGroup';
-import { getData, findCustomers } from '../../actions/lab4Actions';
+import { getData, findOrders } from '../../actions/lab4Actions';
 
-import CustomerTable from './table/Customer';
+import OrderTable from './table/Order';
 
 import './table/Table.css';
-import './Customer.css';
+import './Orders.css';
 
-class Customer extends Component {
+class Orders extends Component {
   componentDidMount() {
     this.props.getData();
   }
@@ -21,8 +20,7 @@ class Customer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: '',
-      price: '',
+      date: '',
       errors: {}
     };
 
@@ -41,9 +39,11 @@ class Customer extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const { productId, price } = this.state;
-    if (!isEmpty(productId) && !isEmpty(price)) {
-      this.props.findCustomers(productId, price);
+    const { date } = this.state;
+    console.log(date);
+
+    if (!isEmpty(date)) {
+      this.props.findOrders(date);
     } else {
       console.log('NO FULL ENTERED VALUES');
     }
@@ -54,7 +54,14 @@ class Customer extends Component {
   }
 
   render() {
-    const { products, foundCustomers, fetchError, loading } = this.props.lab4;
+    const {
+      products,
+      foundOrders,
+      customers,
+      orderItems,
+      fetchError,
+      loading
+    } = this.props.lab4;
 
     const { errors } = this.state;
 
@@ -65,8 +72,13 @@ class Customer extends Component {
       if (!isEmpty(fetchError)) {
         content = <p>{fetchError}</p>;
       } else {
-        if (foundCustomers.length !== 0) {
-          content = <CustomerTable heading={'Found'} data={foundCustomers} />;
+        if (foundOrders.length !== 0) {
+          content = (
+            <OrderTable
+              heading="Found"
+              data={{ orders: foundOrders, customers, orderItems, products }}
+            />
+          );
         }
       }
     }
@@ -74,28 +86,24 @@ class Customer extends Component {
     return (
       <div className="container">
         <h3>
-          Press find to search for customers with orders on specified summary
+          Press find to search for orders made by customers after entered date
         </h3>
         <Link to="/lab4" className="link-button">
           <span>Back To Lab 4 Page</span>
         </Link>
         <div className="form-group">
-          <select name="productId" onChange={this.onChange}>
-            <option value="NO_VALUE">Choose a product</option>
-            {products.map(product => (
-              <option key={product._id} value={product._id}>
-                {product.prodName}
-              </option>
-            ))}
-          </select>
-          <TextFieldGroup
-            placeholder="Price"
-            name="price"
-            value={this.state.price}
+          <input
+            type="date"
+            placeholder="Enter date"
+            name="date"
+            min={new Date(1960, 0, 1).toLocaleDateString('ru-RU')}
+            max={new Date(Date.now()).toLocaleDateString('ru-RU')}
             onChange={this.onChange}
-            error={errors.price}
           />
-          <button onClick={this.onSubmit}>Find Customers</button>
+
+          <button className="submit" onClick={this.onSubmit}>
+            Find Orders
+          </button>
         </div>
         <div>{content}</div>
       </div>
@@ -103,9 +111,9 @@ class Customer extends Component {
   }
 }
 
-Customer.propTypes = {
+Orders.propTypes = {
   getData: PropTypes.func.isRequired,
-  findCustomers: PropTypes.func.isRequired
+  findOrders: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -114,5 +122,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getData, findCustomers }
-)(Customer);
+  { getData, findOrders }
+)(Orders);

@@ -1,4 +1,4 @@
-import { GET_DATA, DATA_LOADING, FIND_CUSTOMERS } from '../actions/types';
+import { GET_DATA, DATA_LOADING, FIND_ORDERS } from '../actions/types';
 
 const initialState = {
   customers: [],
@@ -6,7 +6,7 @@ const initialState = {
   orders: [],
   products: [],
   suppliers: [],
-  foundCustomers: [],
+  foundOrders: [],
   fetchError: '',
   loading: false
 };
@@ -35,11 +35,11 @@ export default function(state = initialState, action) {
         suppliers,
         loading: false
       };
-    case FIND_CUSTOMERS:
-      const { foundCustomers, fetchError } = action.payload;
+    case FIND_ORDERS:
+      const { foundOrders, fetchError } = action.payload;
       return {
         ...state,
-        foundCustomers,
+        foundOrders,
         fetchError,
         loading: false
       };

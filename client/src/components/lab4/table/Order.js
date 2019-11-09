@@ -104,7 +104,7 @@ class Order extends Component {
 
     return (
       <div>
-        <h4>Orders</h4>
+        <h4>{this.props.heading ? this.props.heading + ' ' : ''}Orders</h4>
         {tableContent}
       </div>
     );

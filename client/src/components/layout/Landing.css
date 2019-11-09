@@ -1,14 +1,14 @@
 .landing {
   height: 100vh;
-  background-color: lavender;
+  background-color: mediumturquoise;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
 }
 
-.link-tab {
-  background-color: grey;
+a.link-tab {
+  background-color: steelblue;
   width: 100%;
   height: 50%;
   margin: 10px;
@@ -17,11 +17,13 @@
   align-content: center;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: aliceblue;
   font-size: 32px;
   font-weight: bold;
+  box-shadow: 5px 5px 1px teal;
 }
 
-.link-tab :hover {
-  background-color: black;
+a:hover {
+  background-color: cadetblue;
+  box-shadow: 5px 5px 1px darkcyan;
 }
