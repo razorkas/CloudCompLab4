@@ -40,7 +40,6 @@ class Orders extends Component {
     e.preventDefault();
 
     const { date } = this.state;
-    console.log(date);
 
     if (!isEmpty(date)) {
       this.props.findOrders(date);

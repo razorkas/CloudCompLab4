@@ -76,7 +76,7 @@ router.get('/orders/:date', async (req, res) => {
 
   try {
     orders = await Orders.find({
-      date: { $gt: date }
+      date: { $gte: date }
     });
   } catch (err) {
     res.status(404).json({ fetchError: 'No such orders' });
